@@ -29,7 +29,7 @@ _prompt_yadm_status () {
 }
 
 autoload -Uz add-zsh-hook
-add-zsh-hook periodic _update_yadm_status
+add-zsh-hook precmd _update_yadm_status
 add-zsh-hook precmd _prompt_yadm_status
 
 # Aliases
