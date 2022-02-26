@@ -21,9 +21,9 @@ _update_yadm_status () {
 }
 
 _prompt_yadm_status () {
-    if [[ $YADM_STATUS -eq 1 ]]; then
+    if [[ $YADM_STATUS -eq 1 && $YADM_PROMPT != "off" ]]; then
         print -P '%B%F{magenta}There are local configuration changes. Yadm sync required.%f%b'
-    elif [[ $YADM_STATUS -eq 2 ]]; then
+    elif [[ $YADM_STATUS -eq 2 && $YADM_PROMPT != "off" ]]; then
         print -P '%B%F{magenta}Run yadm push.%f%b'
     fi
 }
