@@ -6,5 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+    if: github.actor == 'jthompson-salesforce'
     steps:
       - uses: hmarr/auto-approve-action@v3
