@@ -6,8 +6,9 @@ export YADM_STATUS=0
 
 _update_yadm_status () {
     local branch_name ahead
-    if [[ $(yadm status -s) ]]; then
-        message='%B%F{magenta}There are local configuration changes. Yadm commit (yc) required.%f%b'
+    if [[ $(pwd) != $HOME ]]; then
+        # do nothing
+    elif [[ $(yadm status -s) ]]; then
         YADM_STATUS=1
     else
         branch_name=$(yadm symbolic-ref --short HEAD 2>/dev/null)
@@ -21,10 +22,12 @@ _update_yadm_status () {
 }
 
 _prompt_yadm_status () {
-    if [[ $YADM_STATUS -eq 1 && $YADM_PROMPT != "off" ]]; then
-        print -P '%B%F{magenta}There are local configuration changes. Yadm commit (yc) required.%f%b'
+    if [[ $(pwd) != $HOME ]]; then
+        # do nothing
+    elif [[ $YADM_STATUS -eq 1 && $YADM_PROMPT != "off" ]]; then
+        print -P '%B%F{magenta}There are local configuration changes: "yadm commit --all" (or "yca") required.%f%b'
     elif [[ $YADM_STATUS -eq 2 && $YADM_PROMPT != "off" ]]; then
-        print -P '%B%F{magenta}Run yadm push (yp).%f%b'
+        print -P '%B%F{magenta}Run "yadm push" (or "yp").%f%b'
     fi
 }
 
